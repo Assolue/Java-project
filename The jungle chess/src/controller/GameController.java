@@ -84,5 +84,6 @@ public class GameController implements GameListener {
             component.repaint();
         }
         // TODO: Implement capture function
+        System.out.println();
     }
 }
