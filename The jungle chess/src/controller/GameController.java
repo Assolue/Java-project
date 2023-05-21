@@ -17,7 +17,7 @@ import view.ChessboardComponent;
  * [in this demo the request methods are onPlayerClickCell() and onPlayerClickChessPiece()]
  *
  */
-/*public class GameController implements GameListener {
+public class GameController implements GameListener {
 
 
     private Chessboard model;
@@ -85,4 +85,4 @@ import view.ChessboardComponent;
         }
         // TODO: Implement capture function
     }
-}*/
+}
