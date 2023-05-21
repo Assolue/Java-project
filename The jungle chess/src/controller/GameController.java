@@ -66,7 +66,7 @@ public class GameController implements GameListener {
             swapColor();
             view.repaint();
             // TODO: if the chess enter Dens or Traps and so on
-            System.out.println();
+            
         }
     }
 
