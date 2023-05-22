@@ -1,5 +1,7 @@
 package view;
 
+import model.ChessPiece;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -10,6 +12,16 @@ import java.awt.*;
 
 public class CellComponent extends JPanel {
     private Color background;
+
+    public ChessPiece getPiece() {
+        return piece;
+    }
+
+    public void setPiece(ChessPiece piece) {
+        this.piece = piece;
+    }
+
+    private ChessPiece piece;
 
     public CellComponent(Color background, Point location, int size) {
         setLayout(new GridLayout(1,1));

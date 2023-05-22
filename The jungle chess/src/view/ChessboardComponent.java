@@ -55,15 +55,16 @@ public class ChessboardComponent extends JComponent {
                             new ChessSpeciesComponent(
                                     chessPiece.getOwner(),
                                     CHESS_SIZE,grid[i][j].getPiece().getName()));
-
-
             }
         }}}
-
-
+    private CellComponent getComponentGridAt(ChessboardPoint point) {
+        return gridComponents[point.getRow()][point.getCol()];
+    }
+    public ChessPiece getChessComponentPieceAt(ChessboardPoint point) {
+        return getComponentGridAt(point).getPiece();
+    }
 
     public void initiateGridComponents() {
-
         riverCell.add(new ChessboardPoint(3,1));
         riverCell.add(new ChessboardPoint(3,2));
         riverCell.add(new ChessboardPoint(4,1));

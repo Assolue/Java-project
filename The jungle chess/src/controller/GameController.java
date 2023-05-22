@@ -87,6 +87,8 @@ public class GameController implements GameListener {
         if(selectedPoint != null  && model.isValidCapture(selectedPoint,point)){
             view.removeChessComponentAtGrid(point);
             view.setChessComponentAtGrid(point, view.removeChessComponentAtGrid(selectedPoint));
+            model.removeChessPiece(point);
+            model.moveChessPiece(selectedPoint,point);
             selectedPoint = null;
             swapColor();
             view.repaint();

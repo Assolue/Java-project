@@ -52,7 +52,7 @@ public class Chessboard {
         return Math.abs(src.getRow() - dest.getRow()) + Math.abs(src.getCol() - dest.getCol());
     }
 
-    private ChessPiece removeChessPiece(ChessboardPoint point) {//移走该点棋子，并得到该点棋子数据
+    public ChessPiece removeChessPiece(ChessboardPoint point) {//移走该点棋子，并得到该点棋子数据
         ChessPiece chessPiece = getChessPieceAt(point);
         getGridAt(point).removePiece();
         return chessPiece;
