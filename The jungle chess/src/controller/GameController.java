@@ -6,9 +6,7 @@ import model.Constant;
 import model.PlayerColor;
 import model.Chessboard;
 import model.ChessboardPoint;
-import view.CellComponent;
-import view.ElephantChessComponent;
-import view.ChessboardComponent;
+import view.*;
 
 /**
  * Controller is the connection between model and view,
@@ -69,11 +67,18 @@ public class GameController implements GameListener {
 
 
         }
+        if (selectedPoint != null && model.isValidCapture(selectedPoint, point)) {
+            model.moveChessPiece(selectedPoint, point);
+            view.setChessComponentAtGrid(point, view.removeChessComponentAtGrid(selectedPoint));
+            selectedPoint = null;
+            swapColor();
+            view.repaint();
+        }
     }
 
     // click a cell with a chess
     @Override
-    public void onPlayerClickChessPiece(ChessboardPoint point, ElephantChessComponent component) {
+    public void onPlayerClickChessPiece(ChessboardPoint point, ChessSpeciesComponent component) {
         if (selectedPoint == null) {
             if (model.getChessPieceOwner(point).equals(currentPlayer)) {
                 selectedPoint = point;
@@ -87,4 +92,5 @@ public class GameController implements GameListener {
         }
         // TODO: Implement capture function
     }
+
 }

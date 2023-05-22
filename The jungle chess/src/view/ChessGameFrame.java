@@ -33,9 +33,7 @@ public class ChessGameFrame extends JFrame {
         addHelloButton();
         addLoadButton();
     }
-    public void paint(Graphics g){
-        g.drawImage(utils.bg,0,0,1100,810,this);//插入图片方法
-    }
+
 
     public ChessboardComponent getChessboardComponent() {
         return chessboardComponent;
