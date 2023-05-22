@@ -19,7 +19,9 @@ public class ChessPiece {
         if (target.getOwner()==this.getOwner()){examine=false;}
         else {
             if (this.getName()==Chess.Elephant){
-                if (target.getName()==Chess.Mouse){examine=false;}}
+                if (target.getName()==Chess.Mouse){examine=false;}
+            else  if (this.getName().getRank()>=target.getName().getRank()){examine=true;}
+                else examine=false;}
             else if (this.getName()==Chess.Mouse){
                 if (target.getName()==Chess.Elephant){examine=true;}}
             else {
