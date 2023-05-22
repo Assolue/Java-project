@@ -67,30 +67,31 @@ public class GameController implements GameListener {
 
 
         }
-        if (selectedPoint != null && model.isValidCapture(selectedPoint, point)) {
-            model.moveChessPiece(selectedPoint, point);
-            view.setChessComponentAtGrid(point, view.removeChessComponentAtGrid(selectedPoint));
-            selectedPoint = null;
-            swapColor();
-            view.repaint();
-        }
     }
 
     // click a cell with a chess
     @Override
     public void onPlayerClickChessPiece(ChessboardPoint point, ChessSpeciesComponent component) {
         if (selectedPoint == null) {
-            if (model.getChessPieceOwner(point).equals(currentPlayer)) {
+            if (model.getChessPieceOwner(point).equals(currentPlayer)) {       //if->这里是指还未选定棋子情况下，如果点击的棋子是当前玩家的棋子的话，选中该棋子
                 selectedPoint = point;
                 component.setSelected(true);
                 component.repaint();
             }
-        } else if (selectedPoint.equals(point)) {
+        } else if (selectedPoint.equals(point)) {                              //else if->这里是指如果鼠标连续点击同一棋子两次，此棋子取消选中，selectedPoint = null
             selectedPoint = null;
             component.setSelected(false);
             component.repaint();
         }
         // TODO: Implement capture function
+        if(selectedPoint != null && model.isValidMove(selectedPoint,point) && model.isValidCapture(selectedPoint,point)){
+            
+            model.moveChessPiece(selectedPoint,point);
+            view.setChessComponentAtGrid(point, view.removeChessComponentAtGrid(selectedPoint));
+            selectedPoint = null;
+            swapColor();
+            view.repaint();
+        }
     }
 
 }
