@@ -72,7 +72,8 @@ public class Chessboard {
     public void captureChessPiece(ChessboardPoint src, ChessboardPoint dest) {
         if (!isValidCapture(src, dest)) {//不能捕获那么打出下面这字  ！我自己加的也是
             throw new IllegalArgumentException("Illegal chess capture!");
-        }else moveChessPiece(src,dest);//检查是否可以捕获，然后检查是否可以移动那么就将src棋子移到dest
+        }else getGridAt(dest).setPiece(null);//如果可以捕获，把终点棋子设为空
+            moveChessPiece(src,dest);//检查是否可以捕获，然后检查是否可以移动那么就将src棋子移到dest
         // TODO: Finish the method.
 
     }

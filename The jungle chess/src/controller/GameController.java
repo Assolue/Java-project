@@ -84,9 +84,9 @@ public class GameController implements GameListener {
             component.repaint();
         }
         // TODO: Implement capture function
-        if(selectedPoint != null && model.isValidMove(selectedPoint,point) && model.isValidCapture(selectedPoint,point)){
+        if(selectedPoint != null  && model.isValidCapture(selectedPoint,point)){
             
-            model.moveChessPiece(selectedPoint,point);
+            model.captureChessPiece(selectedPoint,point);
             view.setChessComponentAtGrid(point, view.removeChessComponentAtGrid(selectedPoint));
             selectedPoint = null;
             swapColor();
