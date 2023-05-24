@@ -16,6 +16,7 @@ public class ChessPiece {
     public boolean canCapture(ChessPiece target) {
         // TODO: Finish this method!
         boolean examine=false;
+
         if (target.getOwner()==this.getOwner()){examine=false;}
         else {
             if (this.getName()==Chess.Elephant){

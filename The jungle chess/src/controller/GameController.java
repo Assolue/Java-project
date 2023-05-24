@@ -2,10 +2,7 @@ package controller;
 
 
 import listener.GameListener;
-import model.Constant;
-import model.PlayerColor;
-import model.Chessboard;
-import model.ChessboardPoint;
+import model.*;
 import view.*;
 
 /**
@@ -48,8 +45,10 @@ public class GameController implements GameListener {
         currentPlayer = currentPlayer == PlayerColor.BLUE ? PlayerColor.RED : PlayerColor.BLUE;
     }
 
-    private boolean win() {
+    private boolean redWin() {
         // TODO: Check the board if there is a winner
+        ChessboardPoint blueHome = new ChessboardPoint(0,3);
+        
         return false;
     }
 
@@ -64,7 +63,6 @@ public class GameController implements GameListener {
             swapColor();
             view.repaint();
             // TODO: if the chess enter Dens or Traps and so on
-
 
         }
     }
@@ -84,7 +82,7 @@ public class GameController implements GameListener {
             component.repaint();
         }
         // TODO: Implement capture function
-        if(selectedPoint != null  && model.isValidCapture(selectedPoint,point)){
+        if(selectedPoint != null  && model.isValidCapture(selectedPoint,point) && !model.isRiver(point) && !model.isRiver(selectedPoint)){
             view.removeChessComponentAtGrid(point);
             view.setChessComponentAtGrid(point, view.removeChessComponentAtGrid(selectedPoint));
             model.removeChessPiece(point);

@@ -21,9 +21,9 @@ import static model.Constant.CHESSBOARD_ROW_SIZE;
 public class ChessboardComponent extends JComponent {
     private final CellComponent[][] gridComponents = new CellComponent[CHESSBOARD_ROW_SIZE.getNum()][CHESSBOARD_COL_SIZE.getNum()];
     private final int CHESS_SIZE;
-    private final Set<ChessboardPoint> riverCell = new HashSet<>();
-    private final Set<ChessboardPoint> trapCell = new HashSet<>();
-    private final Set<ChessboardPoint> homeCell = new HashSet<>();
+    public final Set<ChessboardPoint> riverCell = new HashSet<>();
+    public final Set<ChessboardPoint> trapCell = new HashSet<>();
+    public final Set<ChessboardPoint> homeCell = new HashSet<>();
 
     private GameController gameController;
 
