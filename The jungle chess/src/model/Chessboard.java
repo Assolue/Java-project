@@ -79,7 +79,7 @@ public class Chessboard {
 
     }
 
-    private ChessPiece getChessPieceAt(ChessboardPoint point) {
+    public ChessPiece getChessPieceAt(ChessboardPoint point) {
         return getGridAt(point).getPiece();
     }//得到该点棋子类型
 

@@ -5,6 +5,9 @@ import listener.GameListener;
 import model.*;
 import view.*;
 
+import javax.swing.*;
+import java.awt.*;
+
 /**
  * Controller is the connection between model and view,
  * when a Controller receive a request from a view, the Controller
@@ -46,11 +49,38 @@ public class GameController implements GameListener {
     }
 
     private boolean redWin() {
-        // TODO: Check the board if there is a winner
         ChessboardPoint blueHome = new ChessboardPoint(0,3);
-        
+        if(model.getChessPieceAt(blueHome) != null){
+            if(model.getChessPieceAt(blueHome).getOwner() == PlayerColor.RED){
+                return true;
+            }
+        }
         return false;
     }
+
+    private boolean blueWin() {
+        ChessboardPoint redHome = new ChessboardPoint(8,3);
+        if(model.getChessPieceAt(redHome) != null){
+            if(model.getChessPieceAt(redHome).getOwner() == PlayerColor.BLUE){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public void whenRedWin(){
+
+            if (redWin()){
+                JOptionPane.showMessageDialog(button, "RED Win!!!");
+            }
+        }
+
+    JButton button = new JButton("对战模式");
+    public void whenBlueWin(){
+            if (blueWin()){
+                JOptionPane.showMessageDialog(button, "Blue Win!!!");
+            }
+        }
 
 
     // click an empty cell
