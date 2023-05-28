@@ -12,6 +12,7 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
+
 import static model.Constant.CHESSBOARD_COL_SIZE;
 import static model.Constant.CHESSBOARD_ROW_SIZE;
 
@@ -20,7 +21,8 @@ import static model.Constant.CHESSBOARD_ROW_SIZE;
  */
 public class ChessboardComponent extends JComponent {
     private final CellComponent[][] gridComponents = new CellComponent[CHESSBOARD_ROW_SIZE.getNum()][CHESSBOARD_COL_SIZE.getNum()];
-    private final int CHESS_SIZE;
+
+    private final int CHESS_SIZE ;
     public final Set<ChessboardPoint> riverCell = new HashSet<>();
     public final Set<ChessboardPoint> trapCell = new HashSet<>();
     public final Set<ChessboardPoint> homeCell = new HashSet<>();
@@ -66,6 +68,9 @@ public class ChessboardComponent extends JComponent {
         return getComponentGridAt(point).getPiece();
     }
 
+
+
+
     public void initiateGridComponents() {
         riverCell.add(new ChessboardPoint(3,1));
         riverCell.add(new ChessboardPoint(3,2));
@@ -93,6 +98,7 @@ public class ChessboardComponent extends JComponent {
         homeCell.add(new ChessboardPoint(8,3));
 
 
+
         for (int i = 0; i < CHESSBOARD_ROW_SIZE.getNum(); i++) {
             for (int j = 0; j < CHESSBOARD_COL_SIZE.getNum(); j++) {
                 ChessboardPoint temp = new ChessboardPoint(i, j);
@@ -101,20 +107,31 @@ public class ChessboardComponent extends JComponent {
                     cell = new CellComponent(Color.CYAN, calculatePoint(i, j), CHESS_SIZE);
                     this.add(cell);//如果这是河的话就把格子变成灰色，否则为亮色
                 } else if (trapCell.contains(temp)){
-                    cell = new CellComponent(Color.darkGray, calculatePoint(i, j), CHESS_SIZE);
+                    cell = new CellComponent(Color.GREEN, calculatePoint(i, j), CHESS_SIZE);
                     this.add(cell);}
                 else if (homeCell.contains(temp)){
-                    cell = new CellComponent(Color.ORANGE, calculatePoint(i, j), CHESS_SIZE);
+                    cell = new CellComponent(Color.LIGHT_GRAY, calculatePoint(i, j), CHESS_SIZE);
                     this.add(cell);
                 }
                 else {
-                    cell = new CellComponent(Color.LIGHT_GRAY, calculatePoint(i, j), CHESS_SIZE);
+                    cell = new CellComponent(Color.YELLOW, calculatePoint(i, j), CHESS_SIZE);
                     this.add(cell);
                 }
                 gridComponents[i][j] = cell;
             }
         }
     }
+    public final Set<ChessboardPoint> canMoveCell = new HashSet<>();
+    public void setCanMoveCell(){
+        for (int i = 0; i < CHESSBOARD_ROW_SIZE.getNum(); i++) {
+            for (int j = 0; j < CHESSBOARD_COL_SIZE.getNum(); j++) {
+                ChessboardPoint temp = new ChessboardPoint(i, j);
+                CellComponent cell;
+                if (canMoveCell.contains(temp)) {
+                    cell = new CellComponent(Color.black, calculatePoint(i, j), CHESS_SIZE);
+                    this.add(cell);//如果这是河的话就把格子变成灰色，否则为亮色
+                }
+    }}}
 
     public void registerController(GameController gameController) {
         this.gameController = gameController;
@@ -138,11 +155,11 @@ public class ChessboardComponent extends JComponent {
         return gridComponents[point.getRow()][point.getCol()];
     }
 
-    private ChessboardPoint getChessboardPoint(Point point) {
+    public ChessboardPoint getChessboardPoint(Point point) {
         System.out.println("[" + point.y/CHESS_SIZE +  ", " +point.x/CHESS_SIZE + "] Clicked");
         return new ChessboardPoint(point.y/CHESS_SIZE, point.x/CHESS_SIZE);
     }
-    private Point calculatePoint(int row, int col) {
+    public Point calculatePoint(int row, int col) {
         return new Point(col * CHESS_SIZE, row * CHESS_SIZE);
     }
 
@@ -163,7 +180,10 @@ public class ChessboardComponent extends JComponent {
                 gameController.whenBlueWin();
                 gameController.whenRedWin();
             } else {
+
+
                 System.out.print("One chess here and ");
+
                 gameController.onPlayerClickChessPiece(getChessboardPoint(e.getPoint()), (ChessSpeciesComponent) clickedComponent.getComponents()[0]);
                 gameController.whenBlueWin();
                 gameController.whenRedWin();

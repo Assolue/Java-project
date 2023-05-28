@@ -32,6 +32,8 @@ public class ChessGameFrame extends JFrame {
         addLabel();
         addHelloButton();
         addLoadButton();
+        addLoadButton2();
+        addLoadButton3();
     }
 
 
@@ -68,11 +70,14 @@ public class ChessGameFrame extends JFrame {
      */
 
     private void addHelloButton() {
-        JButton button = new JButton("Show Hello Here");
-        button.addActionListener((e) -> JOptionPane.showMessageDialog(this, "Hello, world!"));
+        JButton button = new JButton("斗兽棋规则");
+        button.addActionListener((e) -> JOptionPane.showMessageDialog(this, "1、鼠吃象法：八兽的吃法除按照大小次序外，惟鼠能吃象。\n" +
+                " 2、互吃法：凡同类相遇，可互相吃。\n" +
+                " 3、陷阱：棋盘设陷阱，专为限制敌兽的战斗力（自己的兽，不受限制），敌兽走入陷阱，即失去战斗力，本方的任意兽类都可以吃去陷阱里的兽类。\n"
+        +"4.当狮子和老虎在河边时，可以横向和纵向跳跃河流，直接到达河对岸,老鼠可以进河，其他动物不得进河。"));
         button.setLocation(HEIGTH, HEIGTH / 10 + 120);
         button.setSize(200, 60);
-        button.setFont(new Font("Rockwell", Font.BOLD, 20));
+        button.setFont(new Font("SimSun", Font.BOLD, 20));
         add(button);
     }
     private void addLoadButton() {
@@ -83,17 +88,24 @@ public class ChessGameFrame extends JFrame {
         add(button);
         addLoadButton2();
     }
-    private void addLoadButton2() {
-        JButton button1 = new JButton("人机对战");
-        button1.setLocation(305,  475);
+    public JButton button1 = new JButton("重新开始");
+    private void addLoadButton3() {
+        button1.setLocation(HEIGTH, HEIGTH / 10 + 360);
         button1.setSize(200, 60);
         button1.setFont(new Font("SimSun", Font.BOLD, 20));
+        button1.addActionListener((e) -> reNew(chessboardComponent));
         add(button1);
-        JButton button2 = new JButton("2P对战");
-        button2.setLocation(305,565 );
-        button2.setSize(200, 60);
-        button2.setFont(new Font("SimSun", Font.BOLD, 20));
-        add(button2);
+        addLoadButton2();
+    }
+    public void reNew(ChessboardComponent chessboardComponent){
+        chessboardComponent.initiateGridComponents();
+    }
+    private void addLoadButton2() {
+        ImageIcon bg=new ImageIcon("imgs/img_17");
+        JLabel label=new JLabel(bg);
+        label.setLocation(0,  0);
+        label.setSize(1100, 810);
+        add(label);
     }
 
    /* private void addLoadButton() {

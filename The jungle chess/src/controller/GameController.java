@@ -7,6 +7,8 @@ import view.*;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Controller is the connection between model and view,
@@ -24,6 +26,21 @@ public class GameController implements GameListener {
 
     // Record whether there is a selected piece before
     private ChessboardPoint selectedPoint;
+
+
+    public Set<ChessboardPoint> getCanMoveCell() {
+        for (int i = 0; i < Constant.CHESSBOARD_ROW_SIZE.getNum(); i++) {
+            for (int j = 0; j < Constant.CHESSBOARD_COL_SIZE.getNum(); j++) {
+                ChessboardPoint point=new ChessboardPoint(i,j);
+                if (model.isValidMove(selectedPoint,point)){
+                    view.canMoveCell.add(new ChessboardPoint(i,j));
+                    }
+                }
+            }view.setCanMoveCell();
+        return null;
+    }
+
+
 
     public GameController(ChessboardComponent view, Chessboard model) {
         this.view = view;
@@ -67,6 +84,7 @@ public class GameController implements GameListener {
         }
         return false;
     }
+
 
     public void whenRedWin(){
 
@@ -121,6 +139,14 @@ public class GameController implements GameListener {
             swapColor();
             view.repaint();
         }
+    }
+    public void onPlayerClickButton(JButton button,ChessGameFrame chessGameFrame){
+        if (button.getName()=="重新开始"){
+            initialize();
+            view.initiateChessComponent(model);
+            view.repaint();
+        }
+
     }
 
 }

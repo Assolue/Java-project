@@ -3,6 +3,7 @@ package view;
 import model.Chess;
 import model.PlayerColor;
 
+import javax.swing.*;
 import java.awt.*;
 
 public class ChessSpeciesComponent extends ChessComponent{
@@ -23,14 +24,89 @@ public class ChessSpeciesComponent extends ChessComponent{
         g2.setFont(font);
         g2.setColor(owner.getColor());
         if (chess==Chess.Elephant){
-            g2.drawString("象", getWidth() / 4, getHeight() * 5 / 8);}// FIXME: Use library to find the correct offset.
-        if (chess==Chess.Lion){g2.drawString("狮", getWidth() / 4, getHeight() * 5 / 8);}
-        if (chess==Chess.Tiger){g2.drawString("虎", getWidth() / 4, getHeight() * 5 / 8);}
-        if (chess==Chess.Leopard){g2.drawString("豹", getWidth() / 4, getHeight() * 5 / 8); }
-        if (chess==Chess.Wolf){g2.drawString("狼", getWidth() / 4, getHeight() * 5 / 8);}
-        if (chess==Chess.Dog){g2.drawString("狗", getWidth() / 4, getHeight() * 5 / 8); }
-        if (chess==Chess.Cat){g2.drawString("猫", getWidth() / 4, getHeight() * 5 / 8);}
-        if (chess==Chess.Mouse){g2.drawString("鼠", getWidth() / 4, getHeight() * 5 / 8);}
+            if (owner==PlayerColor.BLUE){
+                ImageIcon imageIcon=new ImageIcon("imgs/img_8.png");
+                Image image=imageIcon.getImage();
+                g.drawImage(image,0,0,getWidth(),getHeight(),this);
+            }
+            if (owner==PlayerColor.RED){
+                ImageIcon imageIcon=new ImageIcon("imgs/img_9.png");
+                Image image=imageIcon.getImage();
+                g.drawImage(image,0,0,getWidth(),getHeight(),this);
+            }}
+
+        if (chess==Chess.Lion){
+            if (owner==PlayerColor.BLUE){
+                ImageIcon imageIcon=new ImageIcon("imgs/img_1.png");
+                Image image=imageIcon.getImage();
+                g.drawImage(image,0,0,getWidth(),getHeight(),this);
+            }
+            if (owner==PlayerColor.RED){
+                ImageIcon imageIcon=new ImageIcon("imgs/img_16.png");
+                Image image=imageIcon.getImage();
+                g.drawImage(image,0,0,getWidth(),getHeight(),this);
+            }
+        }
+        if (chess==Chess.Tiger){
+            if (owner==PlayerColor.BLUE){
+            ImageIcon imageIcon=new ImageIcon("imgs/img_4.png");
+            Image image=imageIcon.getImage();
+            g.drawImage(image,0,0,getWidth(),getHeight(),this);
+        } if (owner==PlayerColor.RED){
+                ImageIcon imageIcon=new ImageIcon("imgs/img_15.png");
+                Image image=imageIcon.getImage();
+                g.drawImage(image,0,0,getWidth(),getHeight(),this);
+            }}
+        if (chess==Chess.Leopard){
+            if (owner==PlayerColor.BLUE){
+            ImageIcon imageIcon=new ImageIcon("imgs/img_6.png");
+            Image image=imageIcon.getImage();
+            g.drawImage(image,0,0,getWidth(),getHeight(),this);
+        } if (owner==PlayerColor.RED){
+                ImageIcon imageIcon=new ImageIcon("imgs/img_11.png");
+                Image image=imageIcon.getImage();
+                g.drawImage(image,0,0,getWidth(),getHeight(),this);
+            }}
+        if (chess==Chess.Wolf){
+            if (owner==PlayerColor.BLUE){
+            ImageIcon imageIcon=new ImageIcon("imgs/img_7.png");
+            Image image=imageIcon.getImage();
+            g.drawImage(image,0,0,getWidth(),getHeight(),this);
+        } if (owner==PlayerColor.RED){
+                ImageIcon imageIcon=new ImageIcon("imgs/img_10.png");
+                Image image=imageIcon.getImage();
+                g.drawImage(image,0,0,getWidth(),getHeight(),this);
+            }}
+        if (chess==Chess.Dog){
+            if (owner==PlayerColor.BLUE){
+            ImageIcon imageIcon=new ImageIcon("imgs/img_2.png");
+            Image image=imageIcon.getImage();
+            g.drawImage(image,0,0,getWidth(),getHeight(),this);
+        } if (owner==PlayerColor.RED){
+                ImageIcon imageIcon=new ImageIcon("imgs/img_14.png");
+                Image image=imageIcon.getImage();
+                g.drawImage(image,0,0,getWidth(),getHeight(),this);
+            }}
+        if (chess==Chess.Cat){
+            if (owner==PlayerColor.BLUE){
+            ImageIcon imageIcon=new ImageIcon("imgs/img_5.png");
+            Image image=imageIcon.getImage();
+            g.drawImage(image,0,0,getWidth(),getHeight(),this);
+        } if (owner==PlayerColor.RED){
+                ImageIcon imageIcon=new ImageIcon("imgs/img_13.png");
+                Image image=imageIcon.getImage();
+                g.drawImage(image,0,0,getWidth(),getHeight(),this);
+            }}
+        if (chess==Chess.Mouse){
+            if (owner==PlayerColor.BLUE){
+            ImageIcon imageIcon=new ImageIcon("imgs/img_3.png");
+            Image image=imageIcon.getImage();
+            g.drawImage(image,0,0,getWidth(),getHeight(),this);
+        } if (owner==PlayerColor.RED){
+                ImageIcon imageIcon=new ImageIcon("imgs/img_12.png");
+                Image image=imageIcon.getImage();
+                g.drawImage(image,0,0,getWidth(),getHeight(),this);
+            }}
         if (isSelected()) { // Highlights the model if selected.
             g.setColor(Color.RED);
             g.drawOval(0, 0, getWidth() , getHeight());
