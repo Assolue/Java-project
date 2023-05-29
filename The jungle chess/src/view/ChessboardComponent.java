@@ -47,7 +47,7 @@ public class ChessboardComponent extends JComponent {
      * according to Chessboard information
      */
     public void initiateChessComponent(Chessboard chessboard) {
-        new Chessboard();
+        chessboard.initPieces();
         Cell[][] grid = chessboard.getGrid();
         for (int i = 0; i < CHESSBOARD_ROW_SIZE.getNum(); i++) {
             for (int j = 0; j < CHESSBOARD_COL_SIZE.getNum(); j++) {
@@ -62,6 +62,22 @@ public class ChessboardComponent extends JComponent {
                                     CHESS_SIZE,grid[i][j].getPiece().getName()));
             }
         }}}
+    public void loadChessComponent(Chessboard chessboard) {
+        chessboard.loadChessAgain();
+        Cell[][] grid = chessboard.getGrid();
+        for (int i = 0; i < CHESSBOARD_ROW_SIZE.getNum(); i++) {
+            for (int j = 0; j < CHESSBOARD_COL_SIZE.getNum(); j++) {
+                // TODO: Implement the initialization checkerboard
+
+                if (grid[i][j].getPiece()!=null) {
+                    ChessPiece chessPiece = grid[i][j].getPiece();
+                    System.out.println(chessPiece.getOwner());
+                    gridComponents[i][j].add(
+                            new ChessSpeciesComponent(
+                                    chessPiece.getOwner(),
+                                    CHESS_SIZE,grid[i][j].getPiece().getName()));
+                }
+            }}}
     private CellComponent getComponentGridAt(ChessboardPoint point) {
         return gridComponents[point.getRow()][point.getCol()];
     }

@@ -35,8 +35,19 @@ public class ChessPiece {
         return name;
     }
 
+    public int getRank(Chess chess){
+        return chess.getRank();
+    }
+
+
     public PlayerColor getOwner() {
         return owner;
+    }
+
+    public char getOwner2(PlayerColor playerColor){
+        if(playerColor == PlayerColor.BLUE){return 'B';}
+        if(playerColor == PlayerColor.RED){return 'R';}
+        return 0;
     }
     public void setOwner(PlayerColor owner) {
         this.owner = owner;

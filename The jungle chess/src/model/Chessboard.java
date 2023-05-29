@@ -1,11 +1,21 @@
 package model;
 
+import controller.GameController;
+import saveandload.Node;
+import saveandload.Recorder;
+
+import javax.swing.*;
+import java.awt.*;
+import java.util.Vector;
+
 /**
  * This class store the real chess information.
  * The Chessboard has 9*7 cells, and each cell has a position for chess
  */
 public class Chessboard {
     private Cell[][] grid;
+    public static Vector<Node> nodes = new Vector<>();
+    public int nn = 0;
     public Chessboard() {
         this.grid = new Cell[Constant.CHESSBOARD_ROW_SIZE.getNum()][Constant.CHESSBOARD_COL_SIZE.getNum()];//19X19
         initGrid();
@@ -16,6 +26,15 @@ public class Chessboard {
         initBlueHomePiece();
         initRedHomePiece();
     }
+     public Chessboard(int hight){
+         this.grid = new Cell[Constant.CHESSBOARD_ROW_SIZE.getNum()][Constant.CHESSBOARD_COL_SIZE.getNum()];
+         initGrid();
+         initRivers();
+         initBlueTrapPiece();
+         initRedTrapPiece();
+         initBlueHomePiece();
+         initRedHomePiece();
+     }
 
     public void initGrid() {//将该点用grid[][]表示出来
         for (int i = 0; i < Constant.CHESSBOARD_ROW_SIZE.getNum(); i++) {
@@ -76,6 +95,41 @@ public class Chessboard {
         grid[6][2].setPiece(new ChessPiece(PlayerColor.RED, Chess.Wolf));
         grid[2][6].setPiece(new ChessPiece(PlayerColor.BLUE, Chess.Elephant));
         grid[6][0].setPiece(new ChessPiece(PlayerColor.RED, Chess.Elephant));
+    }
+
+    public void loadChessAgain(){
+        for(int i =0;i < nodes.size();i++){
+            Node node = nodes.get(i);
+            int x = node.getX();
+            int y = node.getY();
+            int rank = node.getItRank();
+            char s = node.getOwner();
+            Chess a = null;
+            if(rank == 0){
+                a = Chess.Mouse;
+            }else if(rank == 1){
+                a = Chess.Cat;
+            }else if(rank == 2){
+                a = Chess.Dog;
+            }else if(rank == 3){
+                a = Chess.Wolf;
+            }else if(rank == 4) {
+                a = Chess.Leopard;
+            }else if(rank == 5){
+                a = Chess.Tiger;
+            }else if(rank == 6){
+                a = Chess.Lion;
+            }else if(rank == 7){
+                a = Chess.Elephant;
+            }
+            PlayerColor pc = null;
+            if(s == 'B'){
+                pc = PlayerColor.BLUE;
+            }else if(s == 'R'){
+                pc = PlayerColor.RED;
+            }
+            grid[x][y].setPiece(new ChessPiece(pc,a));
+        }
 
     }
 
@@ -142,11 +196,12 @@ public class Chessboard {
     }
 
     public void moveChessPiece(ChessboardPoint src, ChessboardPoint dest) {//棋子由src点移到dest点
+        if (getChessPieceAt(dest)==null){
         if (!isValidMove(src, dest)) {//不能移动那么打出下面这行字
             throw new IllegalArgumentException("Illegal chess move!");
         }//true那么把src棋子移到dest
         else setChessPiece(dest, removeChessPiece(src));//是不是少了else 这是我自己加的
-    }
+    }}
 
     public void captureChessPiece(ChessboardPoint src, ChessboardPoint dest) {
         if (!isValidCapture(src, dest)) {//不能捕获那么打出下面这字  ！我自己加的也是

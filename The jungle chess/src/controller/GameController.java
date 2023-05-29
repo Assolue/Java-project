@@ -3,12 +3,14 @@ package controller;
 
 import listener.GameListener;
 import model.*;
+import saveandload.*;
 import view.*;
 
 import javax.swing.*;
 import java.awt.*;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.Vector;
 
 /**
  * Controller is the connection between model and view,
@@ -24,14 +26,26 @@ public class GameController implements GameListener {
     public ChessboardComponent view;
     public static PlayerColor currentPlayer;
 
+    public static PlayerColor getAnotherPlayer() {
+        if (currentPlayer==PlayerColor.RED){
+            anotherPlayer=PlayerColor.BLUE;
+        }else anotherPlayer=PlayerColor.RED;
+        return anotherPlayer;
+    }
+
+    public static PlayerColor anotherPlayer;
+
     // Record whether there is a selected piece before
     private ChessboardPoint selectedPoint;
+
+
     public static int number=4;
 
 
     public static PlayerColor getCurrentPlayer() {
         return currentPlayer;
     }
+
 
     public Set<ChessboardPoint> getCanMoveCell() {
         for (int i = 0; i < Constant.CHESSBOARD_ROW_SIZE.getNum(); i++) {
@@ -55,6 +69,18 @@ public class GameController implements GameListener {
         initialize();
         view.initiateChessComponent(model);
         view.repaint();
+        Recorder.setNow(model);
+    }
+    public GameController(ChessboardComponent view, Chessboard model,int a) {
+        this.view = view;
+        this.model = model;
+        this.currentPlayer = PlayerColor.BLUE;
+        view.registerController(this);
+        initialize();
+        model.nodes = Recorder.loadGame();
+        view.loadChessComponent(model);
+        view.repaint();
+        Recorder.setNow(model);
     }
 
     private void initialize() {
@@ -68,6 +94,7 @@ public class GameController implements GameListener {
     // after a valid move swap the player
     private void swapColor() {
         currentPlayer = currentPlayer == PlayerColor.BLUE ? PlayerColor.RED : PlayerColor.BLUE;
+        Recorder.setRecordPlayer(currentPlayer);
     }
 
     private boolean redWin() {
@@ -129,8 +156,10 @@ public class GameController implements GameListener {
             if (model.getChessPieceOwner(point).equals(currentPlayer)) {       //if->这里是指还未选定棋子情况下，如果点击的棋子是当前玩家的棋子的话，选中该棋子
                 selectedPoint = point;
                 component.setSelected(true);
-                component.repaint();ChessGameFrame.SetText();
+                component.repaint();
                 number++;ChessGameFrame.setNumber(number/4);
+                Recorder.recordFile();
+
             }
         } else if (selectedPoint.equals(point)) {                              //else if->这里是指如果鼠标连续点击同一棋子两次，此棋子取消选中，selectedPoint = null
             selectedPoint = null;
@@ -146,7 +175,7 @@ public class GameController implements GameListener {
             model.moveChessPiece(selectedPoint,point);
             selectedPoint = null;number++;
             swapColor();ChessGameFrame.setNumber(number/4);
-            view.repaint();ChessGameFrame.SetText();
+            view.repaint();ChessGameFrame.SetText2();
         }
     }
 
