@@ -1,7 +1,12 @@
 package model;
 
+import controller.GameController;
+import saveandload.Node;
+import saveandload.Recorder;
+
 import javax.swing.*;
 import java.awt.*;
+import java.util.Vector;
 
 /**
  * This class store the real chess information.
@@ -9,6 +14,8 @@ import java.awt.*;
  */
 public class Chessboard {
     private Cell[][] grid;
+    public static Vector<Node> nodes = new Vector<>();
+    public int nn = 0;
     public Chessboard() {
         this.grid = new Cell[Constant.CHESSBOARD_ROW_SIZE.getNum()][Constant.CHESSBOARD_COL_SIZE.getNum()];//19X19
         initGrid();
@@ -19,8 +26,17 @@ public class Chessboard {
         initBlueHomePiece();
         initRedHomePiece();
     }
+     public Chessboard(int hight){
+         this.grid = new Cell[Constant.CHESSBOARD_ROW_SIZE.getNum()][Constant.CHESSBOARD_COL_SIZE.getNum()];
+         initGrid();
+         initRivers();
+         initBlueTrapPiece();
+         initRedTrapPiece();
+         initBlueHomePiece();
+         initRedHomePiece();
+     }
 
-    private void initGrid() {//将该点用grid[][]表示出来
+    public void initGrid() {//将该点用grid[][]表示出来
         for (int i = 0; i < Constant.CHESSBOARD_ROW_SIZE.getNum(); i++) {
             for (int j = 0; j < Constant.CHESSBOARD_COL_SIZE.getNum(); j++) {
                 grid[i][j] = new Cell();
@@ -28,7 +44,7 @@ public class Chessboard {
         }
     }
 
-    private void initRivers(){//放置河单元格
+    public void initRivers(){//放置河单元格
         grid[3][1].setRiverPiece(new RiverPiece());
         grid[3][2].setRiverPiece(new RiverPiece());
         grid[4][1].setRiverPiece(new RiverPiece());
@@ -43,26 +59,26 @@ public class Chessboard {
         grid[5][5].setRiverPiece(new RiverPiece());
     }
 
-    private void initBlueTrapPiece(){//放置蓝色陷阱格
+    public void initBlueTrapPiece(){//放置蓝色陷阱格
         grid[0][2].setBlueTrapPiece(new BlueTrapPiece());
         grid[0][4].setBlueTrapPiece(new BlueTrapPiece());
         grid[1][3].setBlueTrapPiece(new BlueTrapPiece());
     }
-    private void initRedTrapPiece(){//放置红色陷阱格
+    public void initRedTrapPiece(){//放置红色陷阱格
         grid[8][2].setRedTrapPiece(new RedTrapPiece());
         grid[8][4].setRedTrapPiece(new RedTrapPiece());
         grid[7][3].setRedTrapPiece(new RedTrapPiece());
     }
 
-    private void initBlueHomePiece(){//放置蓝色基地
+    public void initBlueHomePiece(){//放置蓝色基地
         grid[0][3].setBlueHomePiece(new BlueHomePiece());
     }
 
-    private void initRedHomePiece(){//放置红色基地
+    public void initRedHomePiece(){//放置红色基地
         grid[8][3].setRedHomePiece(new RedHomePiece());
     }
 
-    private void initPieces() {//放置棋子
+    public void initPieces() {//放置棋子
         grid[0][0].setPiece(new ChessPiece(PlayerColor.BLUE, Chess.Lion));
         grid[8][6].setPiece(new ChessPiece(PlayerColor.RED, Chess.Lion));
         grid[0][6].setPiece(new ChessPiece(PlayerColor.BLUE, Chess.Tiger));
@@ -79,6 +95,41 @@ public class Chessboard {
         grid[6][2].setPiece(new ChessPiece(PlayerColor.RED, Chess.Wolf));
         grid[2][6].setPiece(new ChessPiece(PlayerColor.BLUE, Chess.Elephant));
         grid[6][0].setPiece(new ChessPiece(PlayerColor.RED, Chess.Elephant));
+    }
+
+    public void loadChessAgain(){
+        for(int i =0;i < nodes.size();i++){
+            Node node = nodes.get(i);
+            int x = node.getX();
+            int y = node.getY();
+            int rank = node.getItRank();
+            char s = node.getOwner();
+            Chess a = null;
+            if(rank == 0){
+                a = Chess.Mouse;
+            }else if(rank == 1){
+                a = Chess.Cat;
+            }else if(rank == 2){
+                a = Chess.Dog;
+            }else if(rank == 3){
+                a = Chess.Wolf;
+            }else if(rank == 4) {
+                a = Chess.Leopard;
+            }else if(rank == 5){
+                a = Chess.Tiger;
+            }else if(rank == 6){
+                a = Chess.Lion;
+            }else if(rank == 7){
+                a = Chess.Elephant;
+            }
+            PlayerColor pc = null;
+            if(s == 'B'){
+                pc = PlayerColor.BLUE;
+            }else if(s == 'R'){
+                pc = PlayerColor.RED;
+            }
+            grid[x][y].setPiece(new ChessPiece(pc,a));
+        }
 
     }
 

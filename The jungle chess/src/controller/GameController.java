@@ -22,13 +22,16 @@ import java.util.Vector;
 public class GameController implements GameListener {
 
 
-    private Chessboard model;
-    private ChessboardComponent view;
-    private PlayerColor currentPlayer;
+    public Chessboard model;
+    public ChessboardComponent view;
+    public PlayerColor currentPlayer;
 
     // Record whether there is a selected piece before
     private ChessboardPoint selectedPoint;
-    public Vector<Node> nodes = new Vector<>(); //此nodes记录存档的数据，用于恢复存档
+
+
+    public static int number=4;
+
 
 
     public Set<ChessboardPoint> getCanMoveCell() {
@@ -54,7 +57,17 @@ public class GameController implements GameListener {
         view.initiateChessComponent(model);
         view.repaint();
         Recorder.setNow(model);
-        nodes = Recorder.loadGame();
+    }
+    public GameController(ChessboardComponent view, Chessboard model,int a) {
+        this.view = view;
+        this.model = model;
+        this.currentPlayer = PlayerColor.BLUE;
+        view.registerController(this);
+        initialize();
+        model.nodes = Recorder.loadGame();
+        view.loadChessComponent(model);
+        view.repaint();
+        Recorder.setNow(model);
     }
 
     private void initialize() {
@@ -114,6 +127,8 @@ public class GameController implements GameListener {
             model.moveChessPiece(selectedPoint, point);
             view.setChessComponentAtGrid(point, view.removeChessComponentAtGrid(selectedPoint));
             selectedPoint = null;
+            number++;
+            ChessGameFrame.setNumber(number/4);
             swapColor();
             view.repaint();
             // TODO: if the chess enter Dens or Traps and so on
@@ -129,11 +144,13 @@ public class GameController implements GameListener {
                 selectedPoint = point;
                 component.setSelected(true);
                 component.repaint();
+                number++;ChessGameFrame.setNumber(number/4);
             }
         } else if (selectedPoint.equals(point)) {                              //else if->这里是指如果鼠标连续点击同一棋子两次，此棋子取消选中，selectedPoint = null
             selectedPoint = null;
             component.setSelected(false);
             component.repaint();
+            number--;ChessGameFrame.setNumber(number/4);
         }
         // TODO: Implement capture function
         if(selectedPoint != null  && model.isValidCapture(selectedPoint,point) && !model.isRiver(point) && !model.isRiver(selectedPoint)){
@@ -141,18 +158,10 @@ public class GameController implements GameListener {
             view.setChessComponentAtGrid(point, view.removeChessComponentAtGrid(selectedPoint));
             model.removeChessPiece(point);
             model.moveChessPiece(selectedPoint,point);
-            selectedPoint = null;
-            swapColor();
+            selectedPoint = null;number++;
+            swapColor();ChessGameFrame.setNumber(number/4);
             view.repaint();
         }
-    }
-    public void onPlayerClickButton(JButton button,ChessGameFrame chessGameFrame){
-        if (button.getName()=="重新开始"){
-            initialize();
-            view.initiateChessComponent(model);
-            view.repaint();
-        }
-
     }
 
 }

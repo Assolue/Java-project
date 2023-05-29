@@ -7,15 +7,13 @@ import java.io.*;
 import java.util.Vector;
 
 public class Recorder {
-    static int num = 1;
-    private static String filePath = "C:\\Users\\07\\java之斗兽棋\\" + num + ".txt";
+    private static String filePath = "C:\\Users\\07\\java之斗兽棋\\1.txt";
     private static PlayerColor recordPlayer = PlayerColor.BLUE;
     private static BufferedWriter bw = null;
     private static BufferedReader br = null;
     private static Chessboard now = null;
     private static Vector<Node> nodes = new Vector<>();
     private static String nowOwner = null;
-    public static int chessNum = 0;
 
 
     public static void recordFile(){
@@ -53,7 +51,6 @@ public class Recorder {
                 String[] sta = line.split(" ");
                 Node node = new Node(Integer.parseInt(sta[0]),Integer.parseInt(sta[1]),Integer.parseInt(sta[2]),sta[3].charAt(0));
                 nodes.add(node);
-                chessNum++;
             }
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -67,7 +64,7 @@ public class Recorder {
             }
         }
 
-        return null;
+        return nodes;
     }
 
     public static void setRecordPlayer(PlayerColor recordPlayer) {
