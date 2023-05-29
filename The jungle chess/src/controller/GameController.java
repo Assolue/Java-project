@@ -22,12 +22,16 @@ public class GameController implements GameListener {
 
     public Chessboard model;
     public ChessboardComponent view;
-    public PlayerColor currentPlayer;
+    public static PlayerColor currentPlayer;
 
     // Record whether there is a selected piece before
     private ChessboardPoint selectedPoint;
     public static int number=4;
 
+
+    public static PlayerColor getCurrentPlayer() {
+        return currentPlayer;
+    }
 
     public Set<ChessboardPoint> getCanMoveCell() {
         for (int i = 0; i < Constant.CHESSBOARD_ROW_SIZE.getNum(); i++) {
@@ -110,7 +114,7 @@ public class GameController implements GameListener {
             view.setChessComponentAtGrid(point, view.removeChessComponentAtGrid(selectedPoint));
             selectedPoint = null;
             number++;
-            ChessGameFrame.setNumber(number/4);
+            ChessGameFrame.setNumber(number/4);ChessGameFrame.SetText();
             swapColor();
             view.repaint();
             // TODO: if the chess enter Dens or Traps and so on
@@ -125,7 +129,7 @@ public class GameController implements GameListener {
             if (model.getChessPieceOwner(point).equals(currentPlayer)) {       //if->这里是指还未选定棋子情况下，如果点击的棋子是当前玩家的棋子的话，选中该棋子
                 selectedPoint = point;
                 component.setSelected(true);
-                component.repaint();
+                component.repaint();ChessGameFrame.SetText();
                 number++;ChessGameFrame.setNumber(number/4);
             }
         } else if (selectedPoint.equals(point)) {                              //else if->这里是指如果鼠标连续点击同一棋子两次，此棋子取消选中，selectedPoint = null
@@ -142,7 +146,7 @@ public class GameController implements GameListener {
             model.moveChessPiece(selectedPoint,point);
             selectedPoint = null;number++;
             swapColor();ChessGameFrame.setNumber(number/4);
-            view.repaint();
+            view.repaint();ChessGameFrame.SetText();
         }
     }
 
