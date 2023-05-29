@@ -65,6 +65,7 @@ public class GameController implements GameListener {
         view.registerController(this);
         initialize();
         model.nodes = Recorder.loadGame();
+        ChessGameFrame.setNumber(Recorder.getNowTurn());
         view.loadChessComponent(model);
         view.repaint();
         Recorder.setNow(model);

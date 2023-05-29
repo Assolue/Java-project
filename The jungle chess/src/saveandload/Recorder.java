@@ -1,7 +1,9 @@
 package saveandload;
 
+import controller.GameController;
 import model.*;
 import org.junit.jupiter.api.Test;
+import view.ChessGameFrame;
 
 import java.io.*;
 import java.util.Vector;
@@ -13,13 +15,24 @@ public class Recorder {
     private static BufferedReader br = null;
     private static Chessboard now = null;
     private static Vector<Node> nodes = new Vector<>();
-    private static String nowOwner = null;
+    public static String nowOwner = null;
+
+    public static int getNowTurn() {
+        return nowTurn;
+    }
+
+    public static void setNowTurn(int nowTurn) {
+        Recorder.nowTurn = nowTurn;
+    }
+
+    private static int nowTurn = 6;
 
 
     public static void recordFile(){
         try {
             bw = new BufferedWriter(new FileWriter(filePath));
             bw.write(String.valueOf(recordPlayer) + "\n");
+            bw.write(GameController.number / 4 + "\n");
             for(int i = 0;i < 9;i++){
                 for(int j = 0;j < 7;j++){
                     ChessboardPoint a = new ChessboardPoint(i,j);
@@ -46,6 +59,7 @@ public class Recorder {
         try {
             br = new BufferedReader(new FileReader(filePath));
             nowOwner = br.readLine();
+            nowTurn = Integer.parseInt(br.readLine());
             String line = "";
             while((line = br.readLine()) != null){
                 String[] sta = line.split(" ");
