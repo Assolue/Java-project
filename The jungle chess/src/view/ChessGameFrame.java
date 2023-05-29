@@ -1,7 +1,7 @@
 package view;
 
 import controller.GameController;
-import view.utils.Imgs.utils;
+import model.Chessboard;
 
 import javax.swing.*;
 import java.awt.*;
@@ -17,6 +17,7 @@ public class ChessGameFrame extends JFrame {
     private final int ONE_CHESS_SIZE;
 
     private ChessboardComponent chessboardComponent;
+    private Chessboard chessboard;
     public ChessGameFrame(int width, int height) {
         setTitle("2023 CS109 Project by Assoule and Tian"); //设置标题
         this.WIDTH = width;
@@ -34,8 +35,18 @@ public class ChessGameFrame extends JFrame {
         addLoadButton();
         addLoadButton2();
         addLoadButton3();
+        addTurn();addTurn2();
+    }
+    public int turn=1;
+    private int caculateTurn(){
+        turn= GameController.number/4;
+        return turn;
     }
 
+    public int getTurn() {
+        caculateTurn();
+        return turn;
+    }
 
     public ChessboardComponent getChessboardComponent() {
         return chessboardComponent;
@@ -52,6 +63,24 @@ public class ChessGameFrame extends JFrame {
         chessboardComponent = new ChessboardComponent(ONE_CHESS_SIZE);
         chessboardComponent.setLocation(HEIGTH / 5, HEIGTH / 10);
         add(chessboardComponent);
+    }
+    private void addTurn(){
+        JLabel statusLabel = new JLabel("Turn: ");
+        statusLabel.setLocation(HEIGTH, HEIGTH / 10+60);
+        statusLabel.setSize(200, 20);
+        statusLabel.setFont(new Font("Rockwell", Font.BOLD, 20));
+        add(statusLabel);
+    }
+    private static JLabel label;
+    private void addTurn2(){
+        label = new JLabel("1");
+        label.setLocation(HEIGTH+60, HEIGTH / 10+60);
+        label.setSize(200,20);
+        label.setFont(new Font("Rockwell", Font.BOLD, 20));
+        add(label);
+    }
+    public static void setNumber(int number) { // 定义方法更新数字显示
+        label.setText(Integer.toString(number)); // 更新标签文字内容
     }
 
     /**
@@ -93,13 +122,13 @@ public class ChessGameFrame extends JFrame {
         button1.setLocation(HEIGTH, HEIGTH / 10 + 360);
         button1.setSize(200, 60);
         button1.setFont(new Font("SimSun", Font.BOLD, 20));
-        button1.addActionListener((e) -> reNew(chessboardComponent));
+        button1.addActionListener((e) ->{ ChessGameFrame mainFrame = new ChessGameFrame(1100, 810);
+        GameController gameController = new GameController(mainFrame.getChessboardComponent(), new Chessboard());
+        mainFrame.setVisible(true);});
         add(button1);
         addLoadButton2();
     }
-    public void reNew(ChessboardComponent chessboardComponent){
-        chessboardComponent.initiateGridComponents();
-    }
+
     private void addLoadButton2() {
         ImageIcon bg=new ImageIcon("imgs/img_17");
         JLabel label=new JLabel(bg);

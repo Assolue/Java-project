@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="The jungle chess:jar">
+    <output-path>$PROJECT_DIR$/../../exe4j</output-path>
+    <root id="archive" name="The jungle chess.jar">
+      <element id="module-output" name="The jungle chess" />
+    </root>
+  </artifact>
+</component>

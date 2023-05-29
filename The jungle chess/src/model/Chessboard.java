@@ -17,7 +17,7 @@ public class Chessboard {
         initRedHomePiece();
     }
 
-    private void initGrid() {//将该点用grid[][]表示出来
+    public void initGrid() {//将该点用grid[][]表示出来
         for (int i = 0; i < Constant.CHESSBOARD_ROW_SIZE.getNum(); i++) {
             for (int j = 0; j < Constant.CHESSBOARD_COL_SIZE.getNum(); j++) {
                 grid[i][j] = new Cell();
@@ -25,7 +25,7 @@ public class Chessboard {
         }
     }
 
-    private void initRivers(){//放置河单元格
+    public void initRivers(){//放置河单元格
         grid[3][1].setRiverPiece(new RiverPiece());
         grid[3][2].setRiverPiece(new RiverPiece());
         grid[4][1].setRiverPiece(new RiverPiece());
@@ -40,26 +40,26 @@ public class Chessboard {
         grid[5][5].setRiverPiece(new RiverPiece());
     }
 
-    private void initBlueTrapPiece(){//放置蓝色陷阱格
+    public void initBlueTrapPiece(){//放置蓝色陷阱格
         grid[0][2].setBlueTrapPiece(new BlueTrapPiece());
         grid[0][4].setBlueTrapPiece(new BlueTrapPiece());
         grid[1][3].setBlueTrapPiece(new BlueTrapPiece());
     }
-    private void initRedTrapPiece(){//放置红色陷阱格
+    public void initRedTrapPiece(){//放置红色陷阱格
         grid[8][2].setRedTrapPiece(new RedTrapPiece());
         grid[8][4].setRedTrapPiece(new RedTrapPiece());
         grid[7][3].setRedTrapPiece(new RedTrapPiece());
     }
 
-    private void initBlueHomePiece(){//放置蓝色基地
+    public void initBlueHomePiece(){//放置蓝色基地
         grid[0][3].setBlueHomePiece(new BlueHomePiece());
     }
 
-    private void initRedHomePiece(){//放置红色基地
+    public void initRedHomePiece(){//放置红色基地
         grid[8][3].setRedHomePiece(new RedHomePiece());
     }
 
-    private void initPieces() {//放置棋子
+    public void initPieces() {//放置棋子
         grid[0][0].setPiece(new ChessPiece(PlayerColor.BLUE, Chess.Lion));
         grid[8][6].setPiece(new ChessPiece(PlayerColor.RED, Chess.Lion));
         grid[0][6].setPiece(new ChessPiece(PlayerColor.BLUE, Chess.Tiger));
