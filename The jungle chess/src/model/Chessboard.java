@@ -1,5 +1,8 @@
 package model;
 
+import javax.swing.*;
+import java.awt.*;
+
 /**
  * This class store the real chess information.
  * The Chessboard has 9*7 cells, and each cell has a position for chess

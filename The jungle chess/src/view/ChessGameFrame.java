@@ -1,6 +1,7 @@
 package view;
 
 import controller.GameController;
+import saveandload.Recorder;
 import view.utils.Imgs.utils;
 
 import javax.swing.*;
@@ -34,6 +35,7 @@ public class ChessGameFrame extends JFrame {
         addLoadButton();
         addLoadButton2();
         addLoadButton3();
+        addSaveButton();
     }
 
 
@@ -95,6 +97,25 @@ public class ChessGameFrame extends JFrame {
         button1.setFont(new Font("SimSun", Font.BOLD, 20));
         button1.addActionListener((e) -> reNew(chessboardComponent));
         add(button1);
+        addLoadButton2();
+    }
+
+    private void addSaveButton(){
+        JButton button = new JButton("保存进度");
+        button.setLocation(HEIGTH,HEIGTH / 10 + 480);
+        button.setSize(200, 60);
+        button.setFont(new Font("SimSun", Font.BOLD, 20));
+        button.addActionListener((e) -> Recorder.recordFile());
+        add(button);
+        addLoadButton2();
+    }
+
+    private void loadButton() {
+        JButton button = new JButton("继续游戏");
+        button.setLocation(HEIGTH, HEIGTH / 10 + 600);
+        button.setSize(200, 60);
+        button.setFont(new Font("SimSun", Font.BOLD, 20));
+        add(button);
         addLoadButton2();
     }
     public void reNew(ChessboardComponent chessboardComponent){

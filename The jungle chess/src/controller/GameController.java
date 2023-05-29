@@ -3,12 +3,14 @@ package controller;
 
 import listener.GameListener;
 import model.*;
+import saveandload.*;
 import view.*;
 
 import javax.swing.*;
 import java.awt.*;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.Vector;
 
 /**
  * Controller is the connection between model and view,
@@ -26,6 +28,7 @@ public class GameController implements GameListener {
 
     // Record whether there is a selected piece before
     private ChessboardPoint selectedPoint;
+    public Vector<Node> nodes = new Vector<>(); //此nodes记录存档的数据，用于恢复存档
 
 
     public Set<ChessboardPoint> getCanMoveCell() {
@@ -50,6 +53,8 @@ public class GameController implements GameListener {
         initialize();
         view.initiateChessComponent(model);
         view.repaint();
+        Recorder.setNow(model);
+        nodes = Recorder.loadGame();
     }
 
     private void initialize() {
@@ -63,6 +68,7 @@ public class GameController implements GameListener {
     // after a valid move swap the player
     private void swapColor() {
         currentPlayer = currentPlayer == PlayerColor.BLUE ? PlayerColor.RED : PlayerColor.BLUE;
+        Recorder.setRecordPlayer(currentPlayer);
     }
 
     private boolean redWin() {
