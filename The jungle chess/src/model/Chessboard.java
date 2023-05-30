@@ -196,11 +196,12 @@ public class Chessboard {
     }
 
     public void moveChessPiece(ChessboardPoint src, ChessboardPoint dest) {//棋子由src点移到dest点
+        if (getChessPieceAt(dest)==null){
         if (!isValidMove(src, dest)) {//不能移动那么打出下面这行字
             throw new IllegalArgumentException("Illegal chess move!");
         }//true那么把src棋子移到dest
         else setChessPiece(dest, removeChessPiece(src));//是不是少了else 这是我自己加的
-    }
+    }}
 
     public void captureChessPiece(ChessboardPoint src, ChessboardPoint dest) {
         if (!isValidCapture(src, dest)) {//不能捕获那么打出下面这字  ！我自己加的也是

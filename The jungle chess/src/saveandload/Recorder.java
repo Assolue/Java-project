@@ -2,8 +2,10 @@ package saveandload;
 
 import controller.GameController;
 import model.*;
+
 import org.junit.jupiter.api.Test;
 import view.ChessGameFrame;
+
 
 import java.io.*;
 import java.util.Vector;
@@ -61,14 +63,23 @@ public class Recorder {
             nowOwner = br.readLine();
             nowTurn = Integer.parseInt(br.readLine());
             String line = "";
+            int[] testX = new int[9];
+            int[] testY = new int[7];
+            int[] testRank = new int[8];
+
             while((line = br.readLine()) != null){
                 String[] sta = line.split(" ");
                 Node node = new Node(Integer.parseInt(sta[0]),Integer.parseInt(sta[1]),Integer.parseInt(sta[2]),sta[3].charAt(0));
                 nodes.add(node);
+                testX[Integer.parseInt(sta[0])] = 1;
+                testY[Integer.parseInt(sta[1])] = 1;
+                testRank[Integer.parseInt(sta[2])] = 1;
             }
         } catch (IOException e) {
-            throw new RuntimeException(e);
-        } finally {
+            System.out.println("101");
+        } catch (ArrayIndexOutOfBoundsException e){
+           
+        }finally {
             try {
                 if(br != null){
                     br.close();

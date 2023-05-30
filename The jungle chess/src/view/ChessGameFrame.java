@@ -35,10 +35,10 @@ public class ChessGameFrame extends JFrame {
 
 
         addChessboard();
-        addLabel();
+        addLabel();addlable();
         addHelloButton();
         addLoadButton3();
-
+        addUndoButton();
         addSaveButton();
         loadButton();
 
@@ -90,6 +90,20 @@ public class ChessGameFrame extends JFrame {
     public static void setNumber(int number) { // 定义方法更新数字显示
         label.setText(Integer.toString(number)); // 更新标签文字内容
     }
+    private static JLabel label2;
+    private void addlable(){
+        label2 = new JLabel("It is BLUE's turn ");
+        label2.setLocation(HEIGTH, HEIGTH / 10+90);
+        label2.setSize(200, 20);
+        label2.setFont(new Font("Rockwell", Font.BOLD, 20));
+        add(label2);
+    }
+    public static void SetText(){
+        label2.setText("It is "+GameController.getAnotherPlayer()+"'s turn");
+    }
+    public static void SetText2(){
+        label2.setText("It is "+GameController.getCurrentPlayer()+"'s turn");
+    }
 
     /**
      * 在游戏面板中添加标签
@@ -139,6 +153,16 @@ public class ChessGameFrame extends JFrame {
         button.addActionListener((e) -> Recorder.recordFile());
         add(button);
 
+    }
+    private void addUndoButton(){
+        JButton button = new JButton("Undo");
+        button.setLocation(HEIGTH, HEIGTH / 10 + 600);
+        button.setSize(200, 60);
+        button.setFont(new Font("SimSun", Font.BOLD, 20));
+        button.addActionListener((e) ->{ ChessGameFrame mainFrame = new ChessGameFrame(1100, 810);
+            GameController gameController = new GameController(mainFrame.getChessboardComponent(), new Chessboard(1),1);
+            mainFrame.setVisible(true);});
+        add(button);
     }
 
     private void loadButton() {
