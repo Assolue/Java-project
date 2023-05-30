@@ -71,14 +71,23 @@ public class Recorder {
                 String[] sta = line.split(" ");
                 Node node = new Node(Integer.parseInt(sta[0]),Integer.parseInt(sta[1]),Integer.parseInt(sta[2]),sta[3].charAt(0));
                 nodes.add(node);
-                testX[Integer.parseInt(sta[0])] = 1;
-                testY[Integer.parseInt(sta[1])] = 1;
+                try {
+                    testX[Integer.parseInt(sta[0])] = 1;
+                    testY[Integer.parseInt(sta[1])] = 1;
+                } catch (ArrayIndexOutOfBoundsException e) {
+                    System.out.println("102");
+                }
                 testRank[Integer.parseInt(sta[2])] = 1;
+                if(nowOwner.isEmpty()){
+                    throw new Exception("轮到谁为空");
+                }
             }
         } catch (IOException e) {
             System.out.println("101");
         } catch (ArrayIndexOutOfBoundsException e){
-           
+           System.out.println("103");
+        } catch (Exception e){
+            System.out.println("104");
         }finally {
             try {
                 if(br != null){
